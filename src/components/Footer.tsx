@@ -49,7 +49,9 @@ const Footer = () => {
               <li>Punjab, India</li>
             </ul>
           </div>
+
         </div>
+        
 
         <div className="border-t border-border mt-10 pt-6 text-center text-sm text-muted-foreground">
           Copyright © 2026 WebNova. All rights reserved.
