@@ -10,12 +10,39 @@ const ContactSection = () => {
   const { toast } = useToast();
   const [form, setForm] = useState({ name: "", email: "", message: "" });
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    toast({ title: "Message sent!", description: "We'll get back to you soon." });
-    setForm({ name: "", email: "", message: "" });
-  };
+ const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
 
+  try {
+    const response = await fetch("https://formspree.io/f/mdawzepp", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify(form),
+    });
+
+    if (response.ok) {
+      toast({
+        title: "Message sent!",
+        description: "We'll get back to you soon.",
+      });
+
+      setForm({ name: "", email: "", message: "" });
+    } else {
+      toast({
+        title: "Error",
+        description: "Something went wrong.",
+      });
+    }
+  } catch (error) {
+    toast({
+      title: "Error",
+      description: "Network error. Try again.",
+    });
+  }
+};
   return (
     <section id="contact" className="section-padding bg-secondary/30">
       <div className="container mx-auto">
